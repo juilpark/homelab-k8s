@@ -64,6 +64,11 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-7" connectable="0" parent="TUcURB3NDiH8GZzw92bF-43" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="ingress-nginx LoadBalancer IP : 10.123.0.254/24 via MetalLB" vertex="1">
+          <mxGeometry relative="1" x="0.2244" y="-1" as="geometry">
+            <mxPoint x="-41" y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-23" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="KVM v-Switch" vertex="1">
           <mxGeometry height="50" width="93.28" x="30" y="85" as="geometry" />
         </mxCell>
