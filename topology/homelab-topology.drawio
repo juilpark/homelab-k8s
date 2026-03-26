@@ -32,34 +32,49 @@
         <mxCell id="TUcURB3NDiH8GZzw92bF-44" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="TUcURB3NDiH8GZzw92bF-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="TUcURB3NDiH8GZzw92bF-23">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="150" y="315" />
+              <mxPoint x="150" y="300" />
               <mxPoint x="150" y="130" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="TUcURB3NDiH8GZzw92bF-8" parent="TUcURB3NDiH8GZzw92bF-7" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Virtual_Machine_2.svg;" value="&lt;div&gt;Edge-Gateway&lt;/div&gt;&lt;div&gt;(CoreOS /w HAProxy)&lt;/div&gt;&lt;div&gt;192.168.1.253/24&lt;/div&gt;" vertex="1">
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-2" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="TUcURB3NDiH8GZzw92bF-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="SomLrMHbSAWS8Ca-v_WC-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TUcURB3NDiH8GZzw92bF-8" parent="TUcURB3NDiH8GZzw92bF-7" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Virtual_Machine_2.svg;" value="&lt;div&gt;Edge-Gateway&lt;/div&gt;&lt;div&gt;(CoreOS /w HAProxy)&lt;/div&gt;&lt;div&gt;192.168.1.253/24&lt;/div&gt;&lt;div&gt;10.123.0.1/24&lt;/div&gt;" vertex="1">
           <mxGeometry height="46" width="50" x="51.64" y="292" as="geometry" />
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-38" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="TUcURB3NDiH8GZzw92bF-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="TUcURB3NDiH8GZzw92bF-37">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="110" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-42" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="TUcURB3NDiH8GZzw92bF-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="TUcURB3NDiH8GZzw92bF-40">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="110" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-43" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="TUcURB3NDiH8GZzw92bF-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="TUcURB3NDiH8GZzw92bF-41">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="110" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-23" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="KVM v-Switch" vertex="1">
           <mxGeometry height="50" width="93.28" x="30" y="85" as="geometry" />
         </mxCell>
-        <mxCell id="TUcURB3NDiH8GZzw92bF-37" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=control_plane" value="&lt;div&gt;Talos OS VM1&lt;/div&gt;&lt;div&gt;Control Plane&lt;/div&gt;&lt;div&gt;192.168.1.10/24&lt;/div&gt;" vertex="1">
-          <mxGeometry height="57.6" width="60" x="270" y="179.99999999999997" as="geometry" />
+        <mxCell id="TUcURB3NDiH8GZzw92bF-37" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=control_plane" value="&lt;div&gt;Talos OS VM1&lt;/div&gt;&lt;div&gt;Control Plane&lt;/div&gt;&lt;div&gt;192.168.1.10/24&lt;/div&gt;&lt;div&gt;10.123.0.10/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="57.6" width="60" x="270" y="129.99999999999997" as="geometry" />
         </mxCell>
-        <mxCell id="TUcURB3NDiH8GZzw92bF-40" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=node" value="&lt;div&gt;Talos OS VM2&lt;/div&gt;&lt;div&gt;Worker Node&lt;/div&gt;&lt;div&gt;192.1681.21/24&lt;/div&gt;" vertex="1">
-          <mxGeometry height="57.6" width="60" x="390" y="180" as="geometry" />
+        <mxCell id="TUcURB3NDiH8GZzw92bF-40" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=node" value="&lt;div&gt;Talos OS VM2&lt;/div&gt;&lt;div&gt;Worker Node&lt;/div&gt;&lt;div&gt;192.1681.21/24&lt;/div&gt;&lt;div&gt;10.123.0.21/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="57.6" width="60" x="390" y="130" as="geometry" />
         </mxCell>
-        <mxCell id="TUcURB3NDiH8GZzw92bF-41" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=node" value="&lt;div&gt;Talos OS VM2&lt;/div&gt;&lt;div&gt;Worker Node&lt;/div&gt;&lt;div&gt;192.168.1.22/24&lt;/div&gt;" vertex="1">
-          <mxGeometry height="57.6" width="60" x="510" y="180" as="geometry" />
+        <mxCell id="TUcURB3NDiH8GZzw92bF-41" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=node" value="&lt;div&gt;Talos OS VM2&lt;/div&gt;&lt;div&gt;Worker Node&lt;/div&gt;&lt;div&gt;192.168.1.22/24&lt;/div&gt;&lt;div&gt;10.123.22/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="57.6" width="60" x="510" y="130" as="geometry" />
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-53" parent="TUcURB3NDiH8GZzw92bF-7" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=16;" value="Computer Spec" vertex="1">
           <mxGeometry height="120" width="180" x="420" y="320" as="geometry" />
@@ -102,6 +117,36 @@
           <mxGeometry height="30" width="140" x="40" as="geometry">
             <mxRectangle height="30" width="140" as="alternateBounds" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-3" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="SomLrMHbSAWS8Ca-v_WC-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TUcURB3NDiH8GZzw92bF-37" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="314" y="270" />
+              <mxPoint x="230" y="270" />
+              <mxPoint x="230" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-4" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="SomLrMHbSAWS8Ca-v_WC-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TUcURB3NDiH8GZzw92bF-40">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="314" y="270" />
+              <mxPoint x="360" y="270" />
+              <mxPoint x="360" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-5" edge="1" parent="TUcURB3NDiH8GZzw92bF-7" source="SomLrMHbSAWS8Ca-v_WC-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="TUcURB3NDiH8GZzw92bF-41">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="314" y="270" />
+              <mxPoint x="480" y="270" />
+              <mxPoint x="480" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-1" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="&lt;div&gt;KVM v-Switch&lt;/div&gt;10.123.0.0/24" vertex="1">
+          <mxGeometry height="36" width="67.16" x="280" y="297" as="geometry" />
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-11" edge="1" parent="1" source="TUcURB3NDiH8GZzw92bF-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;endArrow=classic;endFill=1;startArrow=classic;startFill=1;" target="TUcURB3NDiH8GZzw92bF-3">
           <mxGeometry relative="1" as="geometry">
