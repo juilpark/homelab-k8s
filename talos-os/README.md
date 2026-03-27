@@ -1,12 +1,15 @@
 # Talos OS Bootstrap
 
 이 폴더는 홈랩 Kubernetes 클러스터를 Talos OS로 부트스트랩하기 위한 설정과 작업 메모를 정리하는 공간입니다.  
-현재는 Talos 기본 설정 파일을 생성한 뒤, 각 노드별 patch 파일을 추가해서 실제 VM에 적용하는 방향으로 준비 중입니다.
+범위는 Talos 이미지 준비, machine config patch, `apply-config`, `bootstrap`, kubeconfig 추출까지의 초기 구성입니다.
+클러스터가 올라온 뒤 설치하는 Kubernetes add-on은 별도 폴더에서 관리하는 것을 기본 방향으로 둡니다.
 
 ## 목표
 
 - Talos OS 기반으로 Kubernetes 클러스터 초기 구성을 준비한다.
 - 생성 파일과 수기 작성 patch 파일의 역할을 분리한다.
+- 공통 bootstrap patch와 노드별 patch의 책임을 분리한다.
+- Cilium kube-proxy-free 구성을 위한 Talos 쪽 선행 설정을 문서화한다.
 - 나중에 다시 봐도 같은 흐름으로 재현할 수 있도록 명령과 의도를 함께 기록한다.
 
 ## 전제
@@ -34,6 +37,7 @@
 talos-os
 |-- README.md
 `-- configs
+    |-- bootstrap-common.patch.yaml
     |-- controlplane-1.patch.yaml
     |-- worker-1.patch.yaml
     |-- worker-2.patch.yaml
@@ -79,10 +83,14 @@ Public Repo 운영 원칙에 따라 실제 `talosconfig`, kubeconfig, 인증서,
 
 ## Patch 파일 운영 방식
 
-현재 방향은 "공통 생성 파일 + 노드별 patch" 방식입니다.
+현재 방향은 "공통 생성 파일 + 공통 bootstrap patch + 노드별 patch" 방식입니다.
 
 - 생성 파일:
   - Talos가 기본으로 제공하는 machine 설정의 출발점
+- 공통 bootstrap patch:
+  - 모든 노드에 공통으로 적용할 Talos/Kubernetes 기본값
+  - Cilium kube-proxy-free 선행 설정
+  - metrics-server 호환을 위한 kubelet certificate rotation 같은 공통 옵션
 - patch 파일:
   - 각 VM의 hostname
   - 고정 IP 또는 네트워크 인터페이스 설정
@@ -91,13 +99,24 @@ Public Repo 운영 원칙에 따라 실제 `talosconfig`, kubeconfig, 인증서,
 
 현재 확인된 patch 파일:
 
+- `configs/bootstrap-common.patch.yaml`
 - `configs/controlplane-1.patch.yaml`
 - `configs/worker-1.patch.yaml`
 - `configs/worker-2.patch.yaml`
 
+현재 공통 bootstrap patch에 포함한 항목:
+
+- `cluster.network.cni.name: none`
+  - Talos 기본 CNI를 배포하지 않고, 부트스트랩 후 Cilium을 설치하기 위한 설정
+- `cluster.proxy.disabled: true`
+  - `kube-proxy`를 비활성화해서 Cilium이 Service 처리 기능을 대체하도록 준비
+- `machine.kubelet.extraArgs.rotate-server-certificates: "true"`
+  - 이후 `metrics-server`를 TLS 검증 방식으로 설치할 때 필요한 선행 설정
+
 ## 현재 진행 상태
 
 - Talos 기본 config 생성 완료
+- 공통 bootstrap patch 작성 완료
 - `controlplane-1`, `worker-1`, `worker-2` patch 작성 완료
 - `apply-config`, `bootstrap`, kubeconfig 추출을 위한 기본 작업 순서 문서화 완료
 - 실제 실행 결과와 운영 중 주의사항은 클러스터 구성 후 계속 보강 예정
@@ -111,7 +130,7 @@ Public Repo 운영 원칙에 따라 실제 `talosconfig`, kubeconfig, 인증서,
 3. 각 노드에 `apply-config` 수행
 4. Control Plane bootstrap 수행
 5. kubeconfig 추출 및 `kubectl` 연결 확인
-6. CNI, MetalLB, ingress-nginx, 스토리지 같은 후속 구성 추가
+6. 부트스트랩 완료 후 별도 Kubernetes add-on 폴더에서 Cilium, MetalLB, ingress, 스토리지 같은 후속 구성 추가
 
 ## 적용 전 체크리스트
 
@@ -130,20 +149,23 @@ Public Repo 운영 원칙에 따라 실제 `talosconfig`, kubeconfig, 인증서,
 
 ## 적용용 Machine Config 만들기
 
-저장소에 있는 `controlplane.yaml`, `worker.yaml`은 생성된 base config이고, 실제 적용 전에는 node patch를 합쳐서 최종 machine config를 렌더링해서 사용하는 방식이 깔끔합니다.
+저장소에 있는 `controlplane.yaml`, `worker.yaml`은 생성된 base config이고, 실제 적용 전에는 공통 bootstrap patch와 node patch를 순서대로 합쳐서 최종 machine config를 렌더링해서 사용하는 방식이 깔끔합니다.
 
 예시는 `/tmp`에 렌더링 결과를 만드는 형태로 기록합니다.
 
 ```bash
 talosctl machineconfig patch configs/controlplane.yaml \
+  -p @configs/bootstrap-common.patch.yaml \
   -p @configs/controlplane-1.patch.yaml \
   -o /tmp/controlplane-1.yaml
 
 talosctl machineconfig patch configs/worker.yaml \
+  -p @configs/bootstrap-common.patch.yaml \
   -p @configs/worker-1.patch.yaml \
   -o /tmp/worker-1.yaml
 
 talosctl machineconfig patch configs/worker.yaml \
+  -p @configs/bootstrap-common.patch.yaml \
   -p @configs/worker-2.patch.yaml \
   -o /tmp/worker-2.yaml
 ```
@@ -282,17 +304,36 @@ kubectl get pods -A
 
 기본 부트스트랩이 끝나면 보통 아래 순서로 이어집니다.
 
-1. CNI 동작 확인 및 네트워크 상태 점검
+1. 별도 Kubernetes add-on 폴더에서 Cilium 설치 및 네트워크 상태 점검
 2. MetalLB 설치 및 `192.168.1.2` 같은 외부 노출 IP 구성
-3. ingress-nginx 설치
+3. ingress controller 설치
 4. 사용할 도메인 / 서브도메인 구조 정리
-5. 스토리지, 모니터링, 인증서 자동화 같은 후속 구성 추가
+5. Longhorn, NFS CSI, metrics-server, cert-manager 같은 후속 구성 추가
+
+## 부트스트랩 이후 분리할 영역
+
+`talos-os/`는 Talos와 초기 Kubernetes 제어면이 살아나는 시점까지만 다룹니다.
+
+다음 구성은 별도 폴더에서 이어서 관리하는 것을 권장합니다.
+
+- Cilium 설치와 운영 값
+- MetalLB
+- ingress controller
+- cert-manager
+- external-dns
+- Longhorn
+- NFS CSI
+- metrics-server
+- monitoring stack
+
+이렇게 분리하면 Talos machine config 변경과 Kubernetes add-on 변경의 경계를 명확하게 유지할 수 있습니다.
 
 ## 주의할 점
 
 - `bootstrap`은 최초 클러스터 생성 시 한 번만 실행합니다.
 - `configs/talosconfig`, kubeconfig, 인증서/키 파일은 저장소에 커밋하지 않습니다.
 - patch 파일을 고친 뒤에는 base config에 다시 patch를 합쳐서 렌더링 파일을 새로 만든 다음 적용합니다.
+- 공통 설정은 `bootstrap-common.patch.yaml`에, 노드별 차이는 node patch에 유지합니다.
 - 노드에 이미 config가 적용된 뒤에는 상황에 따라 `apply-config`를 `--insecure` 없이 사용하게 됩니다.
 
 ## 나중에 문서화할 내용
