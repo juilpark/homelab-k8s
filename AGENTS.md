@@ -22,16 +22,16 @@ talosctl gen config homelab-cluster https://192.168.1.10:6443 \
 ```
 
 ## Topology Snapshot
-- Source of truth for the network diagram lives under [`topology/`](./topology).
+- Source of truth for the network diagram lives under [`00-topology/`](./00-topology).
 - Diagram files:
-  - [`topology/homelab-topology.drawio`](./topology/homelab-topology.drawio)
-  - [`topology/homelab-topology.drawio.png`](./topology/homelab-topology.drawio.png)
+  - [`00-topology/homelab-topology.drawio`](./00-topology/homelab-topology.drawio)
+  - [`00-topology/homelab-topology.drawio.png`](./00-topology/homelab-topology.drawio.png)
 - Network details captured in the diagram:
   - Home LAN gateway/OpenWRT: `192.168.1.1/24`
   - Bare-metal bridge uplink: `192.168.1.254/24`
   - Kubernetes-related VIPs:
     - Talos control plane VIP: `192.168.1.10`
-    - ingress-nginx / MetalLB IP example: `192.168.1.2`
+    - MetalLB / ingress IP example: `192.168.1.2`
   - Node IPs:
     - `talos-control-1`: `192.168.1.11/24`, `10.123.0.11/24`
     - `talos-worker-1`: `192.168.1.21/24`, `10.123.0.21/24`
@@ -43,17 +43,27 @@ talosctl gen config homelab-cluster https://192.168.1.10:6443 \
 
 ## Repository Layout
 - [`README.md`](./README.md): top-level repository summary
-- [`topology/README.md`](./topology/README.md): notes for editing the draw.io topology
-- [`talos-os/README.md`](./talos-os/README.md): Talos bootstrap notes
-- [`talos-os/configs/`](./talos-os/configs): generated Talos machine configs and per-node patches
+- [`00-topology/README.md`](./00-topology/README.md): notes for editing the draw.io topology
+- [`01-talos-os/README.md`](./01-talos-os/README.md): Talos bootstrap notes
+- [`01-talos-os/configs/`](./01-talos-os/configs): generated Talos machine configs and per-node patches
+- [`02-kubernetes/README.md`](./02-kubernetes/README.md): ordered Kubernetes add-on guide index
+- [`02-kubernetes/`](./02-kubernetes): step-by-step add-on docs for Cilium, metrics-server, MetalLB, Traefik, and ExternalDNS
 
 ## Current State
-- Talos bootstrap documentation exists in [`talos-os/README.md`](./talos-os/README.md).
-- A generated Talos config directory already exists under [`talos-os/configs/`](./talos-os/configs).
+- Talos bootstrap documentation exists in [`01-talos-os/README.md`](./01-talos-os/README.md).
+- A generated Talos config directory already exists under [`01-talos-os/configs/`](./01-talos-os/configs).
 - Node patch files now exist for the current three-node plan:
-  - [`talos-os/configs/controlplane-1.patch.yaml`](./talos-os/configs/controlplane-1.patch.yaml)
-  - [`talos-os/configs/worker-1.patch.yaml`](./talos-os/configs/worker-1.patch.yaml)
-  - [`talos-os/configs/worker-2.patch.yaml`](./talos-os/configs/worker-2.patch.yaml)
+  - [`01-talos-os/configs/controlplane-1.patch.yaml`](./01-talos-os/configs/controlplane-1.patch.yaml)
+  - [`01-talos-os/configs/worker-1.patch.yaml`](./01-talos-os/configs/worker-1.patch.yaml)
+  - [`01-talos-os/configs/worker-2.patch.yaml`](./01-talos-os/configs/worker-2.patch.yaml)
+- Kubernetes add-on documentation now exists under [`02-kubernetes/`](./02-kubernetes):
+  - [`02-kubernetes/01-cilium.md`](./02-kubernetes/01-cilium.md)
+  - [`02-kubernetes/02-metrics-server.md`](./02-kubernetes/02-metrics-server.md)
+  - [`02-kubernetes/03-metallb.md`](./02-kubernetes/03-metallb.md)
+  - [`02-kubernetes/04-traefik.md`](./02-kubernetes/04-traefik.md)
+  - [`02-kubernetes/05-domain-cloudflare-external-dns.md`](./02-kubernetes/05-domain-cloudflare-external-dns.md)
+- The current ingress direction is Traefik, not ingress-nginx.
+- Domain and DNS automation notes currently assume Cloudflare plus ExternalDNS.
 
 ## Working Expectations
 - Prefer keeping generated Talos base configs and handwritten patch files separate.
@@ -68,16 +78,21 @@ talosctl gen config homelab-cluster https://192.168.1.10:6443 \
   - Node-to-node internal traffic prefers `10.123.0.0/24`
   - Pod and Service CIDRs stay internal-only unless explicitly redesigned
 - When adding Talos or Kubernetes manifests, document why they are needed and where they should be applied from.
+- Keep the numbered directory ordering meaningful for readers:
+  - `00-topology`
+  - `01-talos-os`
+  - `02-kubernetes`
 
 ## Editing Guidance For Future Agents
 - Read the topology assets and Talos notes before changing cluster network settings.
 - Treat IP addresses and node roles in this file as the default baseline unless newer repository files override them.
 - Do not replace generated Talos files blindly; prefer patching or regenerating intentionally with the command documented above.
-- If you change bootstrap flow, also update [`talos-os/README.md`](./talos-os/README.md).
+- If you change bootstrap flow, also update [`01-talos-os/README.md`](./01-talos-os/README.md).
+- If you change add-on order or the chosen ingress/DNS stack, also update [`02-kubernetes/README.md`](./02-kubernetes/README.md) and the step documents under [`02-kubernetes/`](./02-kubernetes).
 - If you change node inventory, endpoint IPs, or VIPs, also update the topology documentation.
 
 ## Next Likely Tasks
 - Capture VM resource sizing and hypervisor assumptions in documentation
-- Add bootstrap/apply instructions for `talosctl apply-config`, `talosctl bootstrap`, and kubeconfig retrieval
-- Document MetalLB, ingress, and any NAS-specific storage integration after the base cluster is up
-- After the cluster is working, write a newcomer-friendly setup guide for others who want to reproduce a similar environment
+- Add the next Kubernetes step document, likely `cert-manager`
+- Document storage integration for the NAS-backed homelab
+- After the cluster is stable, write a newcomer-friendly end-to-end setup guide

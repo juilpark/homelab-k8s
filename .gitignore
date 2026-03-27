@@ -207,22 +207,22 @@ marimo/_lsp/
 __marimo__/
 
 # Talosctl default configs
-talos-os/configs/talosconfig
-talos-os/configs/controlplane.yaml
-talos-os/configs/worker.yaml
+01-talos-os/configs/talosconfig
+01-talos-os/configs/controlplane.yaml
+01-talos-os/configs/worker.yaml
 
 # Talos / Kubernetes sensitive artifacts
-talos-os/configs/secrets.yaml
-talos-os/configs/*.kubeconfig
-talos-os/configs/kubeconfig
-talos-os/configs/*.crt
-talos-os/configs/*.csr
-talos-os/configs/*.key
-talos-os/configs/*.pem
-talos-os/configs/*.p12
-talos-os/configs/*.pfx
-talos-os/configs/*secret*
-talos-os/configs/*bootstrap-token*
+01-talos-os/configs/secrets.yaml
+01-talos-os/configs/*.kubeconfig
+01-talos-os/configs/kubeconfig
+01-talos-os/configs/*.crt
+01-talos-os/configs/*.csr
+01-talos-os/configs/*.key
+01-talos-os/configs/*.pem
+01-talos-os/configs/*.p12
+01-talos-os/configs/*.pfx
+01-talos-os/configs/*secret*
+01-talos-os/configs/*bootstrap-token*
 
 # Local editor / temporary files
 *.swp

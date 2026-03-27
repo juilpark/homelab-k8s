@@ -29,12 +29,12 @@
 - Pod CIDR: `10.244.0.0/16`
 - Service CIDR: `10.96.0.0/12`
 
-네트워크와 전체 배치는 루트 README 및 [`../topology/`](../topology) 자료를 기준으로 맞춥니다.
+네트워크와 전체 배치는 루트 README 및 [`../00-topology/`](../00-topology) 자료를 기준으로 맞춥니다.
 
 ## 현재 폴더 구조
 
 ```text
-talos-os
+01-talos-os
 |-- README.md
 `-- configs
     |-- bootstrap-common.patch.yaml
@@ -111,7 +111,8 @@ Public Repo 운영 원칙에 따라 실제 `talosconfig`, kubeconfig, 인증서,
 - `cluster.proxy.disabled: true`
   - `kube-proxy`를 비활성화해서 Cilium이 Service 처리 기능을 대체하도록 준비
 - `machine.kubelet.extraArgs.rotate-server-certificates: "true"`
-  - 이후 `metrics-server`를 TLS 검증 방식으로 설치할 때 필요한 선행 설정
+  - 이후 `metrics-server`, `kubectl exec`, `kubectl logs`가 kubelet serving certificate를 정상적으로 사용할 수 있게 하기 위한 선행 설정
+  - 이 설정만으로 serving certificate 승인이 끝나는 것은 아니며, bootstrap 이후 Kubernetes 단계에서 `kubelet-serving-cert-approver` 같은 approver를 함께 준비해야 한다
 
 ## 현재 진행 상태
 
@@ -131,6 +132,12 @@ Public Repo 운영 원칙에 따라 실제 `talosconfig`, kubeconfig, 인증서,
 4. Control Plane bootstrap 수행
 5. kubeconfig 추출 및 `kubectl` 연결 확인
 6. 부트스트랩 완료 후 별도 Kubernetes add-on 폴더에서 Cilium, MetalLB, ingress, 스토리지 같은 후속 구성 추가
+
+여기서 주의할 점:
+
+- Talos 쪽에서 `rotate-server-certificates`를 켜는 것은 kubelet serving certificate 요청을 가능하게 하는 사전 준비다.
+- 실제 `kubernetes.io/kubelet-serving` CSR 승인 흐름은 Kubernetes add-on 단계에서 마무리된다.
+- 따라서 Cilium 설치 후에는 `kubelet-serving-cert-approver` 여부도 함께 확인하는 편이 좋다.
 
 ## 적용 전 체크리스트
 
@@ -259,12 +266,23 @@ talosctl --talosconfig "$TALOSCONFIG" get members \
 
 ```bash
 talosctl --talosconfig "$TALOSCONFIG" health \
-  --control-plane-nodes 192.168.1.11 \
-  --worker-nodes 192.168.1.21,192.168.1.22 \
+  --nodes 192.168.1.11 \
+  --control-plane-nodes 10.123.0.11 \
+  --worker-nodes 10.123.0.21 \
+  --worker-nodes 10.123.0.22 \
   --endpoints 192.168.1.11
 ```
 
 VIP 사용으로 전환했다면 `--endpoints 192.168.1.10`으로 바꿔도 됩니다.
+
+주의:
+
+- `talosctl health`에서 `--worker-nodes`나 `--control-plane-nodes`에 쉼표로 여러 IP를 묶어 넣으면 버전에 따라 에러가 날 수 있습니다.
+- 가장 안전한 방식은 위 예시처럼 같은 플래그를 여러 번 반복해서 주는 것입니다.
+- `talosconfig`에 기본 node가 여러 개 잡혀 있으면 `health`가 `multiple nodes` 에러를 낼 수 있습니다.
+- 이 경우 위 예시처럼 `--nodes 192.168.1.11`로 실제 Talos API 요청 대상을 하나로 고정하면 정상 동작합니다.
+- `--nodes`와 `--endpoints`는 Talos API에 실제로 접속할 주소입니다.
+- 반면 `--control-plane-nodes`와 `--worker-nodes`는 health 체크에서 멤버십을 비교할 노드 IP인데, 현재 클러스터에서는 `10.123.0.0/24` 내부망 IP 기준으로 맞추는 것이 자연스럽습니다.
 
 ### 3. kubeconfig 가져오기
 
@@ -310,9 +328,12 @@ kubectl get pods -A
 4. 사용할 도메인 / 서브도메인 구조 정리
 5. Longhorn, NFS CSI, metrics-server, cert-manager 같은 후속 구성 추가
 
+현재 저장소에서는 이 다음 단계 문서를 [`../02-kubernetes/README.md`](../02-kubernetes/README.md) 아래 단계별 문서에서 이어서 관리합니다.
+특히 kubelet serving CSR 승인과 `kubelet-serving-cert-approver` 관련 내용은 [`../02-kubernetes/01-cilium.md`](../02-kubernetes/01-cilium.md)에서 이어서 다룹니다.
+
 ## 부트스트랩 이후 분리할 영역
 
-`talos-os/`는 Talos와 초기 Kubernetes 제어면이 살아나는 시점까지만 다룹니다.
+`01-talos-os/`는 Talos와 초기 Kubernetes 제어면이 살아나는 시점까지만 다룹니다.
 
 다음 구성은 별도 폴더에서 이어서 관리하는 것을 권장합니다.
 
