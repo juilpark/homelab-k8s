@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:148.0) Gecko/20100101 Firefox/148.0" version="29.6.6">
   <diagram name="페이지-1" id="Xez80RnbQa1iCuJYyBok">
-    <mxGraphModel dx="1239" dy="846" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1228" dy="846" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -42,15 +42,15 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="SomLrMHbSAWS8Ca-v_WC-7" connectable="0" parent="TUcURB3NDiH8GZzw92bF-43" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="ingress-nginx LoadBalancer IP : 192.168.1.2/24 via MetalLB" vertex="1">
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-7" connectable="0" parent="TUcURB3NDiH8GZzw92bF-43" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];" value="&lt;div&gt;ingress-nginx LoadBalancer IP : 192.168.1.2&amp;nbsp; /24&amp;nbsp; &amp;nbsp;via MetalLB&lt;/div&gt;ControlPlane VIP : 192.168.1.10/24 via Talos VIP" vertex="1">
           <mxGeometry relative="1" x="0.2244" y="-1" as="geometry">
-            <mxPoint x="-41" y="-11" as="offset" />
+            <mxPoint x="99" y="-19" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="TUcURB3NDiH8GZzw92bF-23" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="KVM v-Switch" vertex="1">
+        <mxCell id="TUcURB3NDiH8GZzw92bF-23" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="Linux Bridge (br0)" vertex="1">
           <mxGeometry height="50" width="93.28" x="30" y="85" as="geometry" />
         </mxCell>
-        <mxCell id="TUcURB3NDiH8GZzw92bF-37" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=control_plane" value="&lt;div&gt;Talos OS VM1&lt;/div&gt;&lt;div&gt;Control Plane&lt;/div&gt;&lt;div&gt;192.168.1.10/24&lt;/div&gt;&lt;div&gt;10.123.0.10/24&lt;/div&gt;" vertex="1">
+        <mxCell id="TUcURB3NDiH8GZzw92bF-37" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=control_plane" value="&lt;div&gt;Talos OS VM1&lt;/div&gt;&lt;div&gt;Control Plane&lt;/div&gt;&lt;div&gt;192.168.1.11/24&lt;/div&gt;&lt;div&gt;10.123.0.11/24&lt;/div&gt;" vertex="1">
           <mxGeometry height="57.6" width="60" x="270" y="129.99999999999997" as="geometry" />
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-40" parent="TUcURB3NDiH8GZzw92bF-7" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=node" value="&lt;div&gt;Talos OS VM2&lt;/div&gt;&lt;div&gt;Worker Node&lt;/div&gt;&lt;div&gt;192.1681.21/24&lt;/div&gt;&lt;div&gt;10.123.0.21/24&lt;/div&gt;" vertex="1">
@@ -128,7 +128,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="SomLrMHbSAWS8Ca-v_WC-1" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="&lt;div&gt;KVM v-Switch&lt;/div&gt;10.123.0.0/24" vertex="1">
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-1" parent="TUcURB3NDiH8GZzw92bF-7" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;clipPath=inset(0% 0.79% 0% 0%);aspect=fixed;" value="&lt;div&gt;KVM v-Switch&lt;/div&gt;&lt;div&gt;(talos-os-net)&lt;/div&gt;10.123.0.0/24" vertex="1">
           <mxGeometry height="36" width="67.16" x="280" y="297" as="geometry" />
         </mxCell>
         <mxCell id="TUcURB3NDiH8GZzw92bF-11" edge="1" parent="1" source="TUcURB3NDiH8GZzw92bF-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;endArrow=classic;endFill=1;startArrow=classic;startFill=1;" target="TUcURB3NDiH8GZzw92bF-3">
@@ -183,8 +183,8 @@
         <mxCell id="TUcURB3NDiH8GZzw92bF-64" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;DHCP Leases&lt;/div&gt;&lt;div&gt;192.168.1.100 ~ 150&lt;/div&gt;" vertex="1">
           <mxGeometry height="30" width="120" x="290" y="140" as="geometry" />
         </mxCell>
-        <mxCell id="SomLrMHbSAWS8Ca-v_WC-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;:80 -&amp;gt; 192.168.1.2:80&lt;/div&gt;&lt;div&gt;:443 -&amp;gt; 192.168.1.2:443&lt;/div&gt;" vertex="1">
-          <mxGeometry height="30" width="130" x="340" y="250" as="geometry" />
+        <mxCell id="SomLrMHbSAWS8Ca-v_WC-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;OpenWRT Port Forward&lt;/div&gt;&lt;div&gt;:80 -&amp;gt; 192.168.1.2:80&lt;/div&gt;&lt;div&gt;:443 -&amp;gt; 192.168.1.2:443&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="140" x="340" y="250" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
