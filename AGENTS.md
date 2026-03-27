@@ -43,7 +43,7 @@ talosctl gen config homelab-cluster https://192.168.1.10:6443 \
 
 ## Repository Layout
 - [`README.md`](./README.md): top-level repository summary
-- [`00-topology/README.md`](./00-topology/README.md): notes for editing the draw.io topology
+- [`00-topology/`](./00-topology): topology source-of-truth and draw.io notes
 - [`01-talos-os/README.md`](./01-talos-os/README.md): Talos bootstrap notes
 - [`01-talos-os/configs/`](./01-talos-os/configs): generated Talos machine configs and per-node patches
 - [`02-kubernetes/README.md`](./02-kubernetes/README.md): ordered Kubernetes add-on guide index
