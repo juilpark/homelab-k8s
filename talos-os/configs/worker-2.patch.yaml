@@ -1,0 +1,23 @@
+machine:
+  kubelet:
+    nodeIP:
+      validSubnets:
+        - 10.123.0.0/24
+        - 192.168.1.0/24
+  network:
+    nameservers:
+      - 192.168.1.1
+    interfaces:
+      - interface: enp1s0
+        addresses:
+          - 192.168.1.22/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+      - interface: enp2s0
+        addresses:
+          - 10.123.0.22/24
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: talos-worker-2
